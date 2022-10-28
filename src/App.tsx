@@ -11,15 +11,15 @@ import ItemComponent from "./components/ItemComponent";
 
 interface Interface {
     isAuth: boolean,
-    children : React.ReactNode | React.ReactNode[],
+    children : React.ReactNode | React.ReactNode[]
 }
 
 
-const IsAuthHok = ({isAuth , children}:Interface) : any => {
+const IsAuthHoc = ({isAuth , children}:Interface)  => {
     if(!isAuth){
-        return <><Navigate  to={"/login"}/></>
+        return <Navigate  to={"/login"}/>
     }
-    return children
+    return <Routes>{children}</Routes>
 }
 
 
@@ -35,11 +35,11 @@ function App() {
          <Route path={"/"} element={<PageLayout/>}>
             <Route path={"*"} element={<p>404</p>}/>
             <Route path={"login"} element={<p>login</p>}/>
-             <Route path={"main"} element={
-                 <IsAuthHok isAuth={isAuth}>
+             <Route path={"main/*"} element={
+                 <IsAuthHoc isAuth={isAuth}>
                      <Route index element={<MainLayout/>}/>
                      <Route path={"/main/:id"} element={<ItemComponent/>}/>
-                 </IsAuthHok>
+                 </IsAuthHoc>
 
              }/>
 
