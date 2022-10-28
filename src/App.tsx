@@ -18,7 +18,6 @@ function App() {
             <Route path={"login"} element={<p>login</p>}/>
              <Route path={"main"} element={<MainLayout/>}/>
              <Route path={"/main/:id"} element={<ItemComponent/>}/>
-
          </Route>
 
      </Routes>
