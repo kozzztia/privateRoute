@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useMemo, useState} from 'react';
 import './App.css';
 import {
     Routes,
@@ -7,11 +7,11 @@ import {
 import PageLayout from "./components/PageLayout";
 import MainLayout from "./components/MainLayout";
 import ItemComponent from "./components/ItemComponent";
-
+import LoginComponent from "./components/LoginComponent";
 
 interface Interface {
     isAuth: boolean,
-    children : React.ReactNode | React.ReactNode[]
+    children : React.ReactNode,
 }
 
 
@@ -34,11 +34,11 @@ function App() {
      <Routes>
          <Route path={"/"} element={<PageLayout/>}>
             <Route path={"*"} element={<p>404</p>}/>
-            <Route path={"login"} element={<p>login</p>}/>
+            <Route path={"login"} element={<LoginComponent setIsAuth={setIsAuth}/>}/>
              <Route path={"main/*"} element={
                  <IsAuthHoc isAuth={isAuth}>
                      <Route index element={<MainLayout/>}/>
-                     <Route path={"/main/:id"} element={<ItemComponent/>}/>
+                     <Route path={":id"} element={<ItemComponent/>}/>
                  </IsAuthHoc>
 
              }/>
