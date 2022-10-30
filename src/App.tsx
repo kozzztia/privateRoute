@@ -35,12 +35,16 @@ function App() {
         <nav>
             <Link to={"home"}>home</Link>
             <Link to={"dashboard"}>dashboard</Link>
+            <button
+                onClick = {()=>{
+                    setIsAuth(prev => !prev)
+                }}
+            >{!isAuth?"login":"logout"}
+            </button>
         </nav>
 
      <Routes>
-         <Route index element={<Landing/>}/>
-         <Route path={"lending"} element={<Landing/>}/>
-         <Route element={<IsAuthHoc isAuth={isAuth}/>}>
+         <Route path={"/"} element={<IsAuthHoc isAuth={isAuth}/>}>
              <Route path={"home"} element={<p>home</p>}/>
              <Route path={"dashboard"} element={<p>dashboard</p>}/>
          </Route>

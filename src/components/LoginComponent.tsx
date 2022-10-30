@@ -9,12 +9,6 @@ const LoginComponent = ({setIsAuth , isAuth}  :setIsAuthInterface) => {
     return (
         <div>
             <p>login</p>
-            <button
-                onClick = {()=>{
-                    setIsAuth(prev => !prev)
-                }}
-            >{!isAuth?"login":"logout"}
-            </button>
         </div>
     );
 };
