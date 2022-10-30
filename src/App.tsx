@@ -1,17 +1,18 @@
-import React, {FC, useMemo, useState} from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import {
     Routes,
-    Route, Navigate
+    Link,
+    Route,
+    Navigate,
+    Outlet,
 } from "react-router-dom";
-import PageLayout from "./components/PageLayout";
-import MainLayout from "./components/MainLayout";
-import ItemComponent from "./components/ItemComponent";
-import LoginComponent from "./components/LoginComponent";
+import Landing from "./components/Landing";
+
 
 interface Interface {
     isAuth: boolean,
-    children : React.ReactNode,
+    children?: React.ReactNode,
 }
 
 
@@ -19,34 +20,31 @@ const IsAuthHoc = ({isAuth , children}:Interface)  => {
     if(!isAuth){
         return <Navigate  to={"/login"}/>
     }
-    return <Routes>{children}</Routes>
+    return <Outlet/>
 }
 
 
 
 
 function App() {
-    const [isAuth , setIsAuth] = useState(false)
+    const [isAuth , setIsAuth] = useState(true)
 
     return (
     <div className="App">
+        <nav>
+            <Link to={"home"}>home</Link>
+            <Link to={"dashboard"}>dashboard</Link>
+        </nav>
 
      <Routes>
-         <Route path={"/"} element={<PageLayout/>}>
-            <Route path={"*"} element={<p>404</p>}/>
-            <Route path={"login"} element={<LoginComponent setIsAuth={setIsAuth}/>}/>
-             <Route path={"main/*"} element={
-                 <IsAuthHoc isAuth={isAuth}>
-                     <Route index element={<MainLayout/>}/>
-                     <Route path={":id"} element={<ItemComponent/>}/>
-                 </IsAuthHoc>
-
-             }/>
-
-
-
+         <Route index element={<Landing/>}/>
+         <Route path={"lending"} element={<Landing/>}/>
+         <Route element={<IsAuthHoc isAuth={isAuth}/>}>
+             <Route path={"home"} element={<p>home</p>}/>
+             <Route path={"dashboard"} element={<p>dashboard</p>}/>
          </Route>
-
+         <Route path={"login"} element={<p>login</p>}/>
+         <Route path={"*"} element={<p>404</p>}/>
      </Routes>
     </div>
   );
