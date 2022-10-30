@@ -8,6 +8,7 @@ import {
     Outlet,
 } from "react-router-dom";
 import Landing from "./components/Landing";
+import LoginComponent from "./components/LoginComponent";
 
 
 interface Interface {
@@ -27,7 +28,7 @@ const IsAuthHoc = ({isAuth , children}:Interface)  => {
 
 
 function App() {
-    const [isAuth , setIsAuth] = useState(true)
+    const [isAuth , setIsAuth] = useState(false)
 
     return (
     <div className="App">
@@ -43,7 +44,7 @@ function App() {
              <Route path={"home"} element={<p>home</p>}/>
              <Route path={"dashboard"} element={<p>dashboard</p>}/>
          </Route>
-         <Route path={"login"} element={<p>login</p>}/>
+         <Route path={"login"} element={<LoginComponent setIsAuth={setIsAuth} isAuth={isAuth}/>}/>
          <Route path={"*"} element={<p>404</p>}/>
      </Routes>
     </div>
